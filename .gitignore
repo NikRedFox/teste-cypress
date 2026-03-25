@@ -32,3 +32,7 @@ yarn-error.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# Cypress Config & Secrets
+cypress.env.json
+cypress/fixtures/example.json
