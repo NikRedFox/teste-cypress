@@ -2,13 +2,9 @@ describe('template spec', () => {
   it('passes', () => {
     cy.visit('https://localhost:3000')
   })
-  it.only('Logar com sucesso', () => {
+  it('Logar com sucesso', () => {
     cy.viewport(1366, 768)
-    cy.visit('http://localhost:3000')
-
-    cy.get('#email').type('4dt@gmail.com')
-    cy.get('#password').type('4DT')
-    cy.contains('button', 'Entrar').click();
+    cy.login('4dt@gmail.com', '4DT')
 
     cy.contains('h4', 'Formulário').click();
 
@@ -46,4 +42,21 @@ describe('template spec', () => {
 
 
   })
+
+  it.only('Deve mostrar erros de validação', () => {
+    cy.viewport(1366, 768)
+    cy.login('4dt@gmail.com', '4DT')
+
+    cy.contains('h4', 'Formulário').click();
+
+    cy.get('button[type="submit"]').click();
+
+    cy.contains('label', 'name').should('contain', 'Campo obrigatório').should('be.visible', 'have.css', 'color', 'rgb(248, 113, 113)')
+    // cy.contains('p','Campo obrigatório').should('be.visible', 'have.css', 'color', 'rgb(248, 113, 113)')
+    
+    cy.contains('p','Campo obrigatório').should('be.visible', 'have.css', 'color', 'rgb(248, 113, 113)')
+    cy.contains('p','Você precisa aceitar os termos de uso').should('be.visible', 'have.css', 'color', 'rgb(248, 113, 113)')
+  })
+
+ 
 })
